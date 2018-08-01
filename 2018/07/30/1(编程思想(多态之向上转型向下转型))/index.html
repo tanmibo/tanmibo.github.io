@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="辉耀没了">
 <meta property="og:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(++Polymorphism++).多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-01T07:46:30.693Z">
+<meta property="og:updated_time" content="2018-08-01T09:00:24.939Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多态中的向上转型以及向下转型">
 <meta name="twitter:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(++Polymorphism++).多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.">
@@ -385,7 +385,7 @@
 <h6 id="引出多态进阶规则"><a href="#引出多态进阶规则" class="headerlink" title="引出多态进阶规则"></a>引出多态进阶规则</h6><ul>
 <li><p><strong><em>当父类对象引用变量引用子类对象时，被引用对象的类型决定了调用谁的成员方法，引用变量类型决定可调用的方法。如果子类中没有覆盖该方法，那么会去父类中寻找。</em></strong></p>
 </li>
-<li><p><em>继承链中对象方法的调用的优先级：<strong>this.show(O)、super.show(O)、this.show((super)O)、super.show((super)O)。</strong></em></p>
+<li><p>继承链中对象方法的调用的优先级：<strong><em>this.show(O)、super.show(O)、this.show((super)O)、super.show((super)O)。</em></strong></p>
 </li>
 </ul>
 <h6 id="对例子的分析"><a href="#对例子的分析" class="headerlink" title="对例子的分析"></a>对例子的分析</h6><blockquote>
@@ -772,7 +772,8 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: window.location.pathname, 
+            <!-- id: window.location.pathname, -->
+			id: '<%= page.title %>'
             owner: 'tanmibo',
             repo: 'tanmibo.github.io',
             
