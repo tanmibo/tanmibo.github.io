@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JWT简介JSON Web Token(JWT)是一个开放标准(RFC 7519)，它定义了一种紧凑且独立的方式，可以在各方之间作为JSON对象安全地传输信息。此信息可以通过数字签名进行验证和信任。JWT可以使用秘密（搭配HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行签名。多用于无状态的身份认证(无状态指服务端不会持久化token).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无状态认证规范JWT以及JWT.io">
+<meta property="og:url" content="http://yoursite.com/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/index.html">
+<meta property="og:site_name" content="辉耀没了">
+<meta property="og:description" content="JWT简介JSON Web Token(JWT)是一个开放标准(RFC 7519)，它定义了一种紧凑且独立的方式，可以在各方之间作为JSON对象安全地传输信息。此信息可以通过数字签名进行验证和信任。JWT可以使用秘密（搭配HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行签名。多用于无状态的身份认证(无状态指服务端不会持久化token).">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-03T01:40:11.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无状态认证规范JWT以及JWT.io">
+<meta name="twitter:description" content="JWT简介JSON Web Token(JWT)是一个开放标准(RFC 7519)，它定义了一种紧凑且独立的方式，可以在各方之间作为JSON对象安全地传输信息。此信息可以通过数字签名进行验证和信任。JWT可以使用秘密（搭配HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行签名。多用于无状态的身份认证(无状态指服务端不会持久化token).">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/"/>
+
+
+
+
+
+  <title>无状态认证规范JWT以及JWT.io | 辉耀没了</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">辉耀没了</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Things we lose have a way of coming back to us in the end .</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tanmibo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="辉耀没了">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">无状态认证规范JWT以及JWT.io</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T11:11:11+08:00">
+                2018-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web知识/" itemprop="url" rel="index">
+                    <span itemprop="name">Web知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="JWT简介"><a href="#JWT简介" class="headerlink" title="JWT简介"></a>JWT简介</h4><p><strong><em>JSON Web Token(JWT)</em></strong>是一个开放标准(RFC 7519)，它定义了一种紧凑且独立的方式，可以在各方之间作为JSON对象安全地传输信息。此信息可以通过数字签名进行验证和信任。JWT可以使用秘密（搭配HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行签名。多用于无状态的身份认证(无状态指服务端不会持久化token).<br><a id="more"></a></p>
+<h4 id="JWT构造"><a href="#JWT构造" class="headerlink" title="JWT构造"></a>JWT构造</h4><ul>
+<li>token表现形式<br><br><strong><em>xxxxx.yyyyy.zzzzz</em></strong><br><br>分别为<strong><em>Header</em></strong>(头),<strong><em>Payload</em></strong>(有效载荷),<strong><em>Signature</em></strong>(签名)</li>
+</ul>
+<h4 id="构造详解"><a href="#构造详解" class="headerlink" title="构造详解"></a>构造详解</h4><ul>
+<li>第一部分为Header,包含了两个字段，一个表示为采用JWT加密的type字段，二个为token中第三个参数加密的算法(HMAC SHA256,RSA).最终将两个字段构造为json格式经过BASE64Url加密成为密钥的第一部分。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二部分为Payload,包含了实体(通常为用户信息),以及其他数据的声明.最终也会作为json格式通过BASE64Url方式加密形成token第二部分<br><h6 id="Payload包含了三种声明"><a href="#Payload包含了三种声明" class="headerlink" title="Payload包含了三种声明:"></a>Payload包含了三种声明:</h6></li>
+</ul>
+<ol>
+<li>已注册的声明(官方已经预定义),包括iss(发行人),exp(到期时间),sub(主题),aud(观众)等.声明的名称不超过三个字符.</li>
+<li>公开声明,由使用JWT的人随意定义,公共的声明可以添加任何的信息,一般添加用户的相关信息或其他业务需要的必要信息.但不建议添加敏感信息,因为该部分在客户端可解密.</li>
+<li>私有声明,由提供者和消费者所共同定义的声明，一般不建议存放敏感信息，因为base64是对称解密的，意味着该部分信息可以归类为明文信息。</li>
+<li><p>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">  &quot;iss&quot;: &quot;Online JWT Builder&quot;,</span><br><span class="line">  &quot;iat&quot;: 1416797419,</span><br><span class="line">  &quot;exp&quot;: 1448333419,</span><br><span class="line">  &quot;aud&quot;: &quot;www.gusibi.com&quot;,</span><br><span class="line">  &quot;sub&quot;: &quot;uid&quot;,</span><br><span class="line">  &quot;nickname&quot;: &quot;goodspeed&quot;,</span><br><span class="line">  &quot;username&quot;: &quot;goodspeed&quot;,</span><br><span class="line">  &quot;scopes&quot;: [ &quot;admin&quot;, &quot;user&quot; ] </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部分已注册声明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iss: 该JWT的签发者，是否使用是可选的；</span><br><span class="line">sub: 该JWT所面向的用户，是否使用是可选的；</span><br><span class="line">aud: 接收该JWT的一方，是否使用是可选的；</span><br><span class="line">exp(expires): 什么时候过期，这里是一个Unix时间戳，是否使用是可选的；</span><br><span class="line">iat(issued at): 在什么时候签发的(UNIX时间)，是否使用是可选的；</span><br><span class="line">nbf (Not Before)：如果当前时间在nbf里的时间之前，则Token不被接受；一般都会留一些余地，比如几分钟；，是否使用是可选的；</span><br><span class="line">jti: jwt的唯一身份标识，主要用来作为一次性token，从而回避重放攻击。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>第三部分为Signature,创建Signature(签名)部分,必须采用编码Header(标头)编码的Payload(有效负载),secret(秘密,可以是随机生成的盐值或其他加密使用的字符串),Header(标头)中指定的算法,并对其进行签名.如用HMACSHA256加密:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + &quot;.&quot; +</span><br><span class="line">  base64UrlEncode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="通过java程序验证token加密方式"><a href="#通过java程序验证token加密方式" class="headerlink" title="通过java程序验证token加密方式"></a>通过java程序验证token加密方式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tanmibo.study.mystudynotes.JWTtest;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.tomcat.util.codec.binary.Base64;</span><br><span class="line"><span class="keyword">import</span> org.bouncycastle.crypto.RuntimeCryptoException;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.Mac;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JWTtest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">encrytSHA256</span><span class="params">(String content, String secret)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Mac hmacSha256 = Mac.getInstance(<span class="string">"HmacSHA256"</span>);</span><br><span class="line">            <span class="keyword">byte</span>[] keyBytes = secret.getBytes(<span class="string">"UTF-8"</span>);</span><br><span class="line">            hmacSha256.init(<span class="keyword">new</span> SecretKeySpec(keyBytes, <span class="number">0</span>, keyBytes.length, <span class="string">"HmacSHA256"</span>));</span><br><span class="line">            String sign = <span class="keyword">new</span> String(Base64.encodeBase64(hmacSha256.doFinal(content.getBytes(<span class="string">"UTF-8"</span>)),<span class="keyword">true</span>));</span><br><span class="line">            <span class="keyword">return</span>  sign;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeCryptoException(<span class="string">"加密异常"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String header = <span class="string">"&#123;\"typ\":\"JWT\",\"alg\":\"HS256\"&#125;"</span>;</span><br><span class="line">        System.out.println(<span class="string">"header BASE64URL加密后:"</span>+Base64.encodeBase64String(header.getBytes()));</span><br><span class="line">        String payload = <span class="string">"&#123;\"exp\":1533192702,\"username\":\"tanmb\"&#125;"</span>;</span><br><span class="line">        System.out.println(<span class="string">"payload BASE64URL加密后:"</span>+Base64.encodeBase64String(payload.getBytes()));</span><br><span class="line">        String secret = <span class="string">"dvjM9xT3zWUzqtr4"</span>;</span><br><span class="line">        String message = <span class="string">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."</span> +</span><br><span class="line">                <span class="string">"eyJleHAiOjE1MzMxOTI3MDIsInVzZXJuYW1lIjoidGFubWIifQ"</span>;</span><br><span class="line">        <span class="comment">//（HMAC计算返回原始二进制数据后进行Base64编码）</span></span><br><span class="line">        String token = <span class="string">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."</span> +</span><br><span class="line">                <span class="string">"eyJleHAiOjE1MzMxOTI3MDIsInVzZXJuYW1lIjoidGFubWIifQ."</span> +</span><br><span class="line">                <span class="string">"wwS4uSjq0_HBd-7QFO0EzyEC7IF_4DQszxxYZFpZG4k"</span>;</span><br><span class="line">        System.out.println(<span class="string">"sign为前两者加盐值HMAC计算返回原始二进制数据后进行Base64编码:"</span>);</span><br><span class="line">        System.out.println(encrytSHA256(message,secret));</span><br><span class="line">        System.out.println(<span class="string">"token为:"</span>);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>控制台输出结果为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">header BASE64URL加密后:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span><br><span class="line">payload BASE64URL加密后:eyJleHAiOjE1MzMxOTI3MDIsInVzZXJuYW1lIjoidGFubWIifQ==</span><br><span class="line">sign为前两者加盐值HMAC计算返回原始二进制数据后进行Base64编码:</span><br><span class="line">wwS4uSjq0/HBd+7QFO0EzyEC7IF/4DQszxxYZFpZG4k=</span><br><span class="line"></span><br><span class="line">token为:</span><br><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzMxOTI3MDIsInVzZXJuYW1lIjoidGFubWIifQ.wwS4uSjq0_HBd-7QFO0EzyEC7IF_4DQszxxYZFpZG4k</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong><em>!! 其中JWT包中对/ =等字符做过处理</em></strong></p>
+<h4 id="java中的JWT常用的方法"><a href="#java中的JWT常用的方法" class="headerlink" title="java中的JWT常用的方法."></a>java中的JWT常用的方法.</h4><ul>
+<li>创建token</li>
+</ul>
+<ol>
+<li>HS256方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Algorithm algorithm = Algorithm.HMAC256(<span class="string">"secret"</span>);</span><br><span class="line">    String token = JWT.create()</span><br><span class="line">        .withIssuer(<span class="string">"auth0"</span>)</span><br><span class="line">        .sign(algorithm);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JWTCreationException exception)&#123;</span><br><span class="line">    <span class="comment">//Invalid Signing configuration / Couldn't convert Claims.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>RS256方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RSAPublicKey publicKey = <span class="comment">//Get the key instance</span></span><br><span class="line">RSAPrivateKey privateKey = <span class="comment">//Get the key instance</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);</span><br><span class="line">    String token = JWT.create()</span><br><span class="line">        .withIssuer(<span class="string">"auth0"</span>)</span><br><span class="line">        .sign(algorithm);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JWTCreationException exception)&#123;</span><br><span class="line">    <span class="comment">//Invalid Signing configuration / Couldn't convert Claims.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>验证token</li>
+</ul>
+<ol>
+<li>HS256方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJpc3MiOiJhdXRoMCJ9.AbIJTDMFc7yUa5MhvcP03nJPyCPzZtQcGEp-zWfOkEE"</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Algorithm algorithm = Algorithm.HMAC256(<span class="string">"secret"</span>);</span><br><span class="line">    JWTVerifier verifier = JWT.require(algorithm)</span><br><span class="line">        .withIssuer(<span class="string">"auth0"</span>)</span><br><span class="line">        .build(); <span class="comment">//Reusable verifier instance</span></span><br><span class="line">    DecodedJWT jwt = verifier.verify(token);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JWTVerificationException exception)&#123;</span><br><span class="line">    <span class="comment">//Invalid signature/claims</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>RS256方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJpc3MiOiJhdXRoMCJ9.AbIJTDMFc7yUa5MhvcP03nJPyCPzZtQcGEp-zWfOkEE"</span>;</span><br><span class="line">RSAPublicKey publicKey = <span class="comment">//Get the key instance</span></span><br><span class="line">RSAPrivateKey privateKey = <span class="comment">//Get the key instance</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);</span><br><span class="line">    JWTVerifier verifier = JWT.require(algorithm)</span><br><span class="line">        .withIssuer(<span class="string">"auth0"</span>)</span><br><span class="line">        .build(); <span class="comment">//Reusable verifier instance</span></span><br><span class="line">    DecodedJWT jwt = verifier.verify(token);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JWTVerificationException exception)&#123;</span><br><span class="line">    <span class="comment">//Invalid signature/claims</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解码token,并取其中的声明</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String token = <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJpc3MiOiJhdXRoMCJ9.AbIJTDMFc7yUa5MhvcP03nJPyCPzZtQcGEp-zWfOkEE"</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    DecodedJWT jwt = JWT.decode(token);</span><br><span class="line">&#125; <span class="keyword">catch</span> (JWTDecodeException exception)&#123;</span><br><span class="line">    <span class="comment">//Invalid token</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解码后,通过方法获取各种参数</li>
+</ul>
+<ol>
+<li>Header</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String algorithm = jwt.getAlgorithm(); <span class="comment">//获取加密算法</span></span><br><span class="line">String type = jwt.getType(); <span class="comment">//获取类型</span></span><br><span class="line">String contentType = jwt.getContentType();</span><br><span class="line">String keyId = jwt.getKeyId();</span><br></pre></td></tr></table></figure>
+<p>私人声明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Claim claim = jwt.getHeaderClaim(<span class="string">"owner"</span>);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Payload</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Issuer (<span class="string">"iss"</span>)-&gt;发行人</span><br><span class="line">String issuer = jwt.getIssuer();</span><br><span class="line">Subject (<span class="string">"sub"</span>)-&gt;主题</span><br><span class="line">String subject = jwt.getSubject();</span><br><span class="line">Audience (<span class="string">"aud"</span>)-&gt;观众</span><br><span class="line">List&lt;String&gt; audience = jwt.getAudience();</span><br><span class="line"><span class="function">Expiration <span class="title">Time</span> <span class="params">(<span class="string">"exp"</span>)</span>-&gt;到期时间</span></span><br><span class="line"><span class="function">Date expiresAt </span>= jwt.getExpiresAt();</span><br><span class="line"><span class="function">Not <span class="title">Before</span> <span class="params">(<span class="string">"nbf"</span>)</span>-&gt;在....之前不</span></span><br><span class="line"><span class="function">Date notBefore </span>= jwt.getNotBefore();</span><br><span class="line"><span class="function">Issued <span class="title">At</span> <span class="params">(<span class="string">"iat"</span>)</span>-&gt;发行于....</span></span><br><span class="line"><span class="function">Date issuedAt </span>= jwt.getIssuedAt();</span><br><span class="line"><span class="function">JWT <span class="title">ID</span> <span class="params">(<span class="string">"jti"</span>)</span></span></span><br><span class="line"><span class="function">String id </span>= jwt.getId();</span><br></pre></td></tr></table></figure>
+<p>私人声明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Claim&gt; claims = jwt.getClaims();</span><br><span class="line"><span class="comment">//Key is the Claim name</span></span><br><span class="line">Claim claim = claims.get(<span class="string">"isAdmin"</span>);</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">Claim claim = jwt.getClaim(<span class="string">"isAdmin"</span>);</span><br></pre></td></tr></table></figure>
+<p>附:<br><a href="https://github.com/auth0/java-jwt" target="_blank" rel="noopener">java-jwt包传送门</a><br>我的GitHub同性交友首页<a href="https://tanmibo.github.io/" target="_blank" rel="noopener">tanmibo.github.io</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/30/1(编程思想(多态之向上转型向下转型))/" rel="next" title="多态中的向上转型以及向下转型">
+                <i class="fa fa-chevron-left"></i> 多态中的向上转型以及向下转型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="Tanmibo" />
+            
+              <p class="site-author-name" itemprop="name">Tanmibo</p>
+              <p class="site-description motion-element" itemprop="description">code,java</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT简介"><span class="nav-number">1.</span> <span class="nav-text">JWT简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT构造"><span class="nav-number">2.</span> <span class="nav-text">JWT构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造详解"><span class="nav-number">3.</span> <span class="nav-text">构造详解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Payload包含了三种声明"><span class="nav-number">3.0.1.</span> <span class="nav-text">Payload包含了三种声明:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过java程序验证token加密方式"><span class="nav-number">4.</span> <span class="nav-text">通过java程序验证token加密方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java中的JWT常用的方法"><span class="nav-number">5.</span> <span class="nav-text">java中的JWT常用的方法.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tanmibo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+			id: '1533179471000',
+            owner: 'tanmibo',
+            repo: 'tanmibo.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '3475d243cab6d16a321f607f8d2870c9f4d12f6b',
+            
+                client_id: '278e7f143a2a68211de3'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

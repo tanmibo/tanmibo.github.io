@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.">
+<meta name="description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多态中的向上转型以及向下转型">
 <meta property="og:url" content="http://yoursite.com/2018/07/30/1(编程思想(多态之向上转型向下转型))/index.html">
 <meta property="og:site_name" content="辉耀没了">
-<meta property="og:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.">
+<meta property="og:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-01T09:22:07.213Z">
+<meta property="og:updated_time" content="2018-08-03T01:40:23.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多态中的向上转型以及向下转型">
-<meta name="twitter:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.">
+<meta name="twitter:description" content="多态将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“多形性”(Polymorphism).">
 
 
 
@@ -371,7 +371,7 @@
       
 
       
-        <h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“<strong>多形性</strong>”(Polymorphism).<br><br><strong>多态性</strong>是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.<br><a id="more"></a></p>
+        <h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“<strong>多形性</strong>”(Polymorphism).<br><br><a id="more"></a><br><strong>多态性</strong>是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作.</p>
 <h4 id="向上转型"><a href="#向上转型" class="headerlink" title="向上转型"></a>向上转型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"player plays game"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"player recharges"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DotaPlayer</span> <span class="keyword">extends</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"dota players play dota"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">complain</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"dota players complain"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LOLPlayer</span> <span class="keyword">extends</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"LOL player plays LOL"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"LOL player is rich,likes to recharge"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Player player = <span class="keyword">new</span> Player();</span><br><span class="line">		Player dotaPlayer = <span class="keyword">new</span> DotaPlayer();</span><br><span class="line">		Player LOLPlayer = <span class="keyword">new</span> LOLPlayer();</span><br><span class="line">		</span><br><span class="line">		player.play();</span><br><span class="line">		player.recharge();</span><br><span class="line">		dotaPlayer.play();</span><br><span class="line">		dotaPlayer.recharge();</span><br><span class="line">		LOLPlayer.play();</span><br><span class="line">		LOLPlayer.recharge();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果为：</span><br><span class="line"><span class="comment">// plays game</span></span><br><span class="line"><span class="comment">//player recharges</span></span><br><span class="line"><span class="comment">//dota players play dota</span></span><br><span class="line"><span class="comment">//player recharges</span></span><br><span class="line"><span class="comment">//LOL player plays LOL</span></span><br><span class="line"><span class="comment">//LOL player is rich,likes to recharge</span></span><br></pre></td></tr></table></figure>
 <p>向上转型后,父类与子类中都有同样的方法时，父类被子类方法覆盖。父类中有的而子类中没有的方法保持原样。</p>
 <h4 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Player player = <span class="keyword">new</span> Player();</span><br><span class="line">		Player dotaPlayer = <span class="keyword">new</span> DotaPlayer();</span><br><span class="line">		Player LOLPlayer = <span class="keyword">new</span> LOLPlayer();</span><br><span class="line">		</span><br><span class="line">		DotaPlayer dotaPlayer2 = (DotaPlayer) dotaPlayer;</span><br><span class="line">		LOLPlayer LOLPlayer2 = (LOLPlayer) LOLPlayer;</span><br><span class="line">		dotaPlayer2.play();</span><br><span class="line">		dotaPlayer2.recharge();</span><br><span class="line">		LOLPlayer2.play();</span><br><span class="line">		LOLPlayer2.recharge();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//此代码会抛出运行时期异常</span></span><br><span class="line">		<span class="comment">//LOLPlayer player2 = (LOLPlayer) new Player();</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line"><span class="comment">//dota players play dota</span></span><br><span class="line"><span class="comment">//player recharges</span></span><br><span class="line"><span class="comment">//LOL player plays LOL</span></span><br><span class="line"><span class="comment">//LOL player is rich,likes to recharge</span></span><br></pre></td></tr></table></figure>
@@ -417,6 +417,7 @@
 </blockquote>
 </li>
 </ul>
+<p>附:<br>我的GitHub同性交友首页<a href="https://tanmibo.github.io/" target="_blank" rel="noopener">tanmibo.github.io</a></p>
 
       
     </div>
@@ -437,6 +438,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/02/2(无状态认证规范JWT以及JWT.io包)/" rel="prev" title="无状态认证规范JWT以及JWT.io">
+                无状态认证规范JWT以及JWT.io <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -521,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -532,7 +549,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
