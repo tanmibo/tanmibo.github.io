@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="code,java">
-<meta property="og:type" content="website">
-<meta property="og:title" content="辉耀没了">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="final关键字用法 一个永不改变的编译时常量。 一个在运行时被初始化的值，而你不希望他改变。 final使引用恒定不变,一旦引用被初始化指向一个对象,就无法再改变它指向另一个对象，然而，对象其自身却是可以被修改的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in java 学习笔记(2)之final关键字">
+<meta property="og:url" content="http://yoursite.com/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/index.html">
 <meta property="og:site_name" content="辉耀没了">
-<meta property="og:description" content="code,java">
+<meta property="og:description" content="final关键字用法 一个永不改变的编译时常量。 一个在运行时被初始化的值，而你不希望他改变。 final使引用恒定不变,一旦引用被初始化指向一个对象,就无法再改变它指向另一个对象，然而，对象其自身却是可以被修改的。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-13T09:34:21.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="辉耀没了">
-<meta name="twitter:description" content="code,java">
+<meta name="twitter:title" content="Thinking in java 学习笔记(2)之final关键字">
+<meta name="twitter:description" content="final关键字用法 一个永不改变的编译时常量。 一个在运行时被初始化的值，而你不希望他改变。 final使引用恒定不变,一旦引用被初始化指向一个对象,就无法再改变它指向另一个对象，然而，对象其自身却是可以被修改的。">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/"/>
 
 
 
 
 
-  <title>辉耀没了</title>
+  <title>Thinking in java 学习笔记(2)之final关键字 | 辉耀没了</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,9 +257,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -289,9 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/" itemprop="url">Thinking in java 学习笔记(2)之final关键字</a></h1>
+          <h1 class="post-title" itemprop="name headline">Thinking in java 学习笔记(2)之final关键字</h1>
         
 
         <div class="post-meta">
@@ -339,6 +337,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -363,19 +371,30 @@
       
 
       
-        
-          <h4 id="final关键字用法"><a href="#final关键字用法" class="headerlink" title="final关键字用法"></a>final关键字用法</h4><ol>
+        <h4 id="final关键字用法"><a href="#final关键字用法" class="headerlink" title="final关键字用法"></a>final关键字用法</h4><ol>
 <li>一个永不改变的编译时常量。</li>
 <li>一个在运行时被初始化的值，而你不希望他改变。</li>
-<li>final使引用恒定不变,一旦引用被初始化指向一个对象,就无法再改变它指向另一个对象，然而，对象其自身却是可以被修改的。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<li>final使引用恒定不变,一旦引用被初始化指向一个对象,就无法再改变它指向另一个对象，然而，对象其自身却是可以被修改的。<a id="more"></a>
+<h4 id="空白final"><a href="#空白final" class="headerlink" title="空白final"></a>空白final</h4></li>
+</ol>
+<ul>
+<li>空白final:被声明为final但又未给定初值的域。</li>
+<li>必须在域的定义处或者每个构造器中用表达式对final进行赋值。<h4 id="final参数"><a href="#final参数" class="headerlink" title="final参数"></a>final参数</h4></li>
+<li>无法再方法中更改参数引用所指向的对象。</li>
+<li>当基本类型的参数被指明为final时，你可以读取参数，却无法修改参数。<h4 id="final方法"><a href="#final方法" class="headerlink" title="final方法"></a>final方法</h4></li>
+<li>防止任何继承类修改它的含义。</li>
+<li>类中所有private方法都是隐式指定为final的。<h4 id="static-final-继承与初始化"><a href="#static-final-继承与初始化" class="headerlink" title="static+final+继承与初始化"></a>static+final+继承与初始化</h4></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> j;</span><br><span class="line">    Insect()&#123;</span><br><span class="line">        System.out.println(<span class="string">"i ="</span>+i+<span class="string">" j="</span>+j);</span><br><span class="line">        j = <span class="number">39</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> x1 = printInit(<span class="string">"Insect.x1 initialized"</span>);</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">printInit</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">47</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Beetle</span> <span class="keyword">extends</span> <span class="title">Insect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> k = printInit(<span class="string">"Beetle.k initialized"</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Beetle</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"k:"</span>+k);</span><br><span class="line">        System.out.println(<span class="string">"j"</span>+j);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> x2 = printInit(<span class="string">"static Beetle.x2 initialized"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Beetle constructor"</span>);</span><br><span class="line">        Beetle b = <span class="keyword">new</span> Beetle();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">"运行结果"</span></span><br><span class="line">Insect.x1 initialized</span><br><span class="line"><span class="keyword">static</span> Beetle.x2 initialized</span><br><span class="line">Beetle constructor</span><br><span class="line">i=<span class="number">9</span> j=<span class="number">0</span></span><br><span class="line">Beetle.k initialized</span><br><span class="line">k:<span class="number">47</span></span><br><span class="line">j:<span class="number">39</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>初始化顺序:</p>
+<ol>
+<li>基类的static初始化-&gt;子类的static初始化</li>
+<li>基类的基本类型与对象引用被设置为初始值-&gt;子类的基本类型与对象引用被设置为初始值</li>
+<li>基类的构造器-&gt;子类的构造器</li>
+</ol>
+</blockquote>
+
       
     </div>
     
@@ -392,159 +411,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tanmibo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉耀没了">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/" itemprop="url">Thinking in java 学习笔记(1)之对象与static关键字</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T11:14:11+08:00">
-                2018-08-03
-              </time>
+              <a href="/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/" rel="next" title="Thinking in java 学习笔记(1)之对象与static关键字">
+                <i class="fa fa-chevron-left"></i> Thinking in java 学习笔记(1)之对象与static关键字
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ThinkingInJava/" itemprop="url" rel="index">
-                    <span itemprop="name">ThinkingInJava</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h4 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"abcd"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong><em>String s</em></strong> 中s为句柄,通过=连接对象”abcd”.<em>最终通过句柄来操作对象</em>。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -554,309 +442,29 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/2.无状态认证规范JWT以及JWT.io包/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tanmibo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉耀没了">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/02/2.无状态认证规范JWT以及JWT.io包/" itemprop="url">无状态认证规范JWT以及JWT.io</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T11:11:11+08:00">
-                2018-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web知识/" itemprop="url" rel="index">
-                    <span itemprop="name">Web知识</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="JWT简介"><a href="#JWT简介" class="headerlink" title="JWT简介"></a>JWT简介</h4><p><strong><em>JSON Web Token(JWT)</em></strong>是一个开放标准(RFC 7519)，它定义了一种紧凑且独立的方式，可以在各方之间作为JSON对象安全地传输信息。此信息可以通过数字签名进行验证和信任。JWT可以使用秘密（搭配HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行签名。多用于无状态的身份认证(无状态指服务端不会持久化token).<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/02/2.无状态认证规范JWT以及JWT.io包/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/1.Thinking in java 附录一之多态之向上转型向下转型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Tanmibo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉耀没了">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/30/1.Thinking in java 附录一之多态之向上转型向下转型/" itemprop="url">Thinking in java 附录一之多态之向上转型向下转型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T11:11:11+08:00">
-                2018-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ThinkingInJava/" itemprop="url" rel="index">
-                    <span itemprop="name">ThinkingInJava</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>将一条消息发给对象时，如果并不知道对方的具体类型是什么，但采取的行动同样是正确的，这种情况就叫 作“<strong>多形性</strong>”(Polymorphism).<br><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/30/1.Thinking in java 附录一之多态之向上转型向下转型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
 
   
 
 
-          </div>
-          
-
-
-          
 
         </div>
         
@@ -877,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -933,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#final关键字用法"><span class="nav-number">1.</span> <span class="nav-text">final关键字用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空白final"><span class="nav-number">2.</span> <span class="nav-text">空白final</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final参数"><span class="nav-number">3.</span> <span class="nav-text">final参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final方法"><span class="nav-number">4.</span> <span class="nav-text">final方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static-final-继承与初始化"><span class="nav-number">5.</span> <span class="nav-text">static+final+继承与初始化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1073,6 +706,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1124,6 +761,30 @@
       </style>
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+			id: '1533611651000',
+            owner: 'tanmibo',
+            repo: 'tanmibo.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '3475d243cab6d16a321f607f8d2870c9f4d12f6b',
+            
+                client_id: '278e7f143a2a68211de3'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 

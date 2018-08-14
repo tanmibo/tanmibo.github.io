@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="句柄1String s = &quot;abcd&quot;; String s 中s为句柄,通过=连接对象”abcd”.最终通过句柄来操作对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in java 学习笔记(1)之对象与static关键字">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/index.html">
+<meta property="og:site_name" content="辉耀没了">
+<meta property="og:description" content="句柄1String s = &quot;abcd&quot;; String s 中s为句柄,通过=连接对象”abcd”.最终通过句柄来操作对象。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-14T03:38:50.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Thinking in java 学习笔记(1)之对象与static关键字">
+<meta name="twitter:description" content="句柄1String s = &quot;abcd&quot;; String s 中s为句柄,通过=连接对象”abcd”.最终通过句柄来操作对象。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/"/>
+
+
+
+
+
+  <title>Thinking in java 学习笔记(1)之对象与static关键字 | 辉耀没了</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">辉耀没了</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Things we lose have a way of coming back to us in the end .</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tanmibo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="辉耀没了">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Thinking in java 学习笔记(1)之对象与static关键字</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T11:14:11+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ThinkingInJava/" itemprop="url" rel="index">
+                    <span itemprop="name">ThinkingInJava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/03/3.Thinking in java 学习笔记(1)之对象与static关键字/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"abcd"</span>;</span><br></pre></td></tr></table></figure>
+<p><strong><em>String s</em></strong> 中s为句柄,通过=连接对象”abcd”.<em>最终通过句柄来操作对象</em>。<br><a id="more"></a></p>
+<h4 id="内存中数据保存的位置"><a href="#内存中数据保存的位置" class="headerlink" title="内存中数据保存的位置"></a>内存中数据保存的位置</h4><ol>
+<li><strong><em>寄存器</em></strong><br><br>这是最快的保存区域，因为它位于和其他所有保存方式不同的地方：处理器内部。然而，寄存 器的数量十分有限，所以寄存器是根据需要由编译器分配。我们对此没有直接的控制权，也不可能在自己的 程序里找到寄存器存在的任何踪迹。</li>
+<li><strong><em>堆栈</em></strong><br><br>驻留于常规 RAM（随机访问存储器）区域，但可通过它的“堆栈指针”获得处理的直接支持。堆 栈指针若向下移，会创建新的内存；若向上移，则会释放那些内存。这是一种特别快、特别有效的数据保存 方式，仅次于寄存器。创建程序时，Java 编译器必须准确地知道堆栈内保存的所有数据的“长度”以及“存 在时间”。这是由于它必须生成相应的代码，以便向上和向下移动指针。这一限制无疑影响了程序的灵活 性，所以尽管有些 Java 数据要保存在堆栈里——特别是对象句柄，但Java 对象并不放到其中。 </li>
+<li><strong><em>堆</em></strong><br><br>一种常规用途的内存池（也在 RAM区域），其中保存了Java 对象。和堆栈不同，“内存堆”或 “堆”（Heap）最吸引人的地方在于编译器不必知道要从堆里分配多少存储空间，也不必知道存储的数据要 在堆里停留多长的时间。因此，用堆保存数据时会得到更大的灵活性。要求创建一个对象时，只需用new命 令编制相关的代码即可。执行这些代码时，会在堆里自动进行数据的保存。当然，为达到这种灵活性，必然 会付出一定的代价：在堆里分配存储空间时会花掉更长的时间！</li>
+<li><strong><em>静态存储</em></strong><br><br>这儿的“静态”（Static）是指“位于固定位置”（尽管也在 RAM里）。程序运行期间，静 态存储的数据将随时等候调用。可用static 关键字指出一个对象的特定元素是静态的。但 Java 对象本身永 远都不会置入静态存储空间。</li>
+<li><strong><em>常数存储</em></strong><br><br>常数值通常直接置于程序代码内部。这样做是安全的，因为它们永远都不会改变。有的常数 需要严格地保护，所以可考虑将它们置入只读存储器（ROM）。</li>
+<li><strong><em>非RAM 存储</em></strong><br><br>若数据完全独立于一个程序之外，则程序不运行时仍可存在，并在程序的控制范围之外。 其中两个最主要的例子便是“流式对象”和“固定对象”。对于流式对象，对象会变成字节流，通常会发给 另一台机器。而对于固定对象，对象保存在磁盘中。即使程序中止运行，它们仍可保持自己的状态不变。对 于这些类型的数据存储，一个特别有用的技巧就是它们能存在于其他媒体中。一旦需要，甚至能将它们恢复 成普通的、基于RAM的对象。</li>
+</ol>
+<h4 id="主要类型"><a href="#主要类型" class="headerlink" title="主要类型"></a>主要类型</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>默认值</th>
+<th>最小值</th>
+<th>最大值</th>
+<th>封装器类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean</td>
+<td>1位</td>
+<td>false</td>
+<td>-</td>
+<td>-</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td>16位</td>
+<td>‘\u0000’(null)</td>
+<td>Unicode 0</td>
+<td>Unicode 2^16-1</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>8位</td>
+<td>(byte)0</td>
+<td>-128</td>
+<td>+127</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16位</td>
+<td>(short)0</td>
+<td>-2^15</td>
+<td>+2^15-1</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32位</td>
+<td>0</td>
+<td>-2^31</td>
+<td>-2^31-1</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64位</td>
+<td>0L</td>
+<td>+2^63</td>
+<td>+2^63-1</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>32位</td>
+<td>0.0f</td>
+<td>IEEE754</td>
+<td>IEEE754</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64位</td>
+<td>0.0d</td>
+<td>IEEE754</td>
+<td>IEEE754</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>void</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Void</td>
+</tr>
+</tbody>
+</table>
+<h4 id="static关键词"><a href="#static关键词" class="headerlink" title="static关键词"></a>static关键词</h4><p>一种情形是<strong><em>只想用一个存储区域来保存一个特定的数据</em></strong>——无论要创建多少个对象，甚至根本不创建对象。另一种情形是我们<strong><em>需要一个特殊的方法，它没有与这个类的任何对象关联</em></strong>。也就是说，即使没有创建对象，也需要一个能调用的方法。为满足这两方面的要求，可使用static（静态）关键字。一旦将什么东西设为static，数据或方法就不会同那个类的任何对象实例联系到一起。</p>
+<ul>
+<li><strong><em>由于static方法不需要创建任何对象</em>，所以它们不可简单地调用其他那些成员，同时不引用一个已命名的对象，从而直接访问非static成员或方法（因为非static成员和方法必须同一个特定的对象关联到一起）。</strong><h4 id="构造器初始化顺序"><a href="#构造器初始化顺序" class="headerlink" title="构造器初始化顺序"></a>构造器初始化顺序</h4></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Window</span></span>&#123;</span><br><span class="line">    Window(<span class="keyword">int</span> marker)&#123;</span><br><span class="line">        print(<span class="string">"Window("</span>+marker+<span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">House</span></span>&#123;</span><br><span class="line">    Window w1 = <span class="keyword">new</span> Window(<span class="number">1</span>);</span><br><span class="line">    House() &#123;</span><br><span class="line">        print(<span class="string">"House()"</span>);</span><br><span class="line">        w3 = <span class="keyword">new</span> Window(<span class="number">33</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w2 = <span class="keyword">new</span> Window(<span class="number">2</span>);</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">        print(<span class="string">"f()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Window w3 = <span class="keyword">new</span> Window(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderOfinitialization</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        House h = <span class="keyword">new</span> house(<span class="number">0</span>);</span><br><span class="line">        h.f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">"输出"</span></span><br><span class="line">Window(<span class="number">1</span>)</span><br><span class="line">Window(<span class="number">2</span>)</span><br><span class="line">Window(<span class="number">3</span>)</span><br><span class="line">House()</span><br><span class="line">Window(<span class="number">33</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="静态数据的初始化"><a href="#静态数据的初始化" class="headerlink" title="静态数据的初始化"></a>静态数据的初始化</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bowl</span> </span>&#123;</span><br><span class="line">    Bowl(<span class="keyword">int</span> marked)&#123;</span><br><span class="line">        System.out.println(<span class="string">"Bowl("</span>+marked+<span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(<span class="keyword">int</span> marked)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"f1("</span>+marked+<span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Table</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Bowl bowl1 = <span class="keyword">new</span> Bowl(<span class="number">1</span>);</span><br><span class="line">    Table() &#123;</span><br><span class="line">        System.out.println(<span class="string">"Table()"</span>);</span><br><span class="line">        bowl2.f1(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(<span class="keyword">int</span> marker)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"f2("</span>+marker+<span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> Bowl bowl2 = <span class="keyword">new</span> Bowl(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cupboard</span> </span>&#123;</span><br><span class="line">    Bowl bowl3 = <span class="keyword">new</span> Bowl(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">static</span> Bowl bowl4 = <span class="keyword">new</span> Bowl(<span class="number">4</span>);</span><br><span class="line">    Cupboard()&#123;</span><br><span class="line">        System.out.println(<span class="string">"Cupboard()"</span>);</span><br><span class="line">        bowl4.f1(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span>  <span class="title">f3</span><span class="params">(<span class="keyword">int</span> marker)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"f3("</span>+marker+<span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> Bowl bowl5 = <span class="keyword">new</span> Bowl(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticInitialization</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Creating new Cupboard() in main"</span>);</span><br><span class="line">        <span class="keyword">new</span> Cupboard();</span><br><span class="line">        System.out.println(<span class="string">"Creating new Cupboard() in main2 "</span>);</span><br><span class="line">        <span class="keyword">new</span> Cupboard();</span><br><span class="line">        table.f2(<span class="number">1</span>);</span><br><span class="line">        cupboard.f3(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> Table table = <span class="keyword">new</span> Table();</span><br><span class="line">    <span class="keyword">static</span> Cupboard cupboard = <span class="keyword">new</span> Cupboard();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">"程序输出结果"</span></span><br><span class="line">Bowl(<span class="number">1</span>)</span><br><span class="line">Bowl(<span class="number">2</span>)</span><br><span class="line">Table()</span><br><span class="line">f1(<span class="number">1</span>)</span><br><span class="line">Bowl(<span class="number">4</span>)</span><br><span class="line">Bowl(<span class="number">5</span>)</span><br><span class="line">Bowl(<span class="number">3</span>)</span><br><span class="line">Cupboard()</span><br><span class="line">f1(<span class="number">2</span>)</span><br><span class="line"><span class="function">Creating new <span class="title">Cupboard</span><span class="params">()</span> in main</span></span><br><span class="line"><span class="function"><span class="title">Bowl</span><span class="params">(<span class="number">3</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">Cupboard</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">f1</span><span class="params">(<span class="number">2</span>)</span></span></span><br><span class="line"><span class="function">Creating new <span class="title">Cupboard</span><span class="params">()</span> in main2 </span></span><br><span class="line"><span class="function"><span class="title">Bowl</span><span class="params">(<span class="number">3</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">Cupboard</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">f1</span><span class="params">(<span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">f2</span><span class="params">(<span class="number">1</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">f3</span><span class="params">(<span class="number">1</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h6 id="规律"><a href="#规律" class="headerlink" title="规律"></a>规律</h6><ul>
+<li>静态初始化只有在有必要的时候才会进行(创建对象或者访问静态数据成员)</li>
+<li>初始化的顺序是先静态对象后非静态对象</li>
+<li>静态块等同于其他静态类型(如对象方法等)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/02/2.无状态认证规范JWT以及JWT.io包/" rel="next" title="无状态认证规范JWT以及JWT.io">
+                <i class="fa fa-chevron-left"></i> 无状态认证规范JWT以及JWT.io
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/4.Thinking in java 学习笔记(2)之final关键字/" rel="prev" title="Thinking in java 学习笔记(2)之final关键字">
+                Thinking in java 学习笔记(2)之final关键字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="Tanmibo" />
+            
+              <p class="site-author-name" itemprop="name">Tanmibo</p>
+              <p class="site-description motion-element" itemprop="description">code,java</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#句柄"><span class="nav-number">1.</span> <span class="nav-text">句柄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存中数据保存的位置"><span class="nav-number">2.</span> <span class="nav-text">内存中数据保存的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要类型"><span class="nav-number">3.</span> <span class="nav-text">主要类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static关键词"><span class="nav-number">4.</span> <span class="nav-text">static关键词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造器初始化顺序"><span class="nav-number">5.</span> <span class="nav-text">构造器初始化顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态数据的初始化"><span class="nav-number">6.</span> <span class="nav-text">静态数据的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#规律"><span class="nav-number">6.0.1.</span> <span class="nav-text">规律</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tanmibo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+			id: '1533266051000',
+            owner: 'tanmibo',
+            repo: 'tanmibo.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '3475d243cab6d16a321f607f8d2870c9f4d12f6b',
+            
+                client_id: '278e7f143a2a68211de3'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
